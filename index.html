@@ -630,7 +630,7 @@ const P7 = (() => {
   };
   const ROBOTS = {
     heavy:   { name: 'Heavy rover',      code: 'HR', mass: 1000, cost: 80, gen: 14, tag: 'subsurface', mobile: true,  real: 'Perseverance, 1,025 kg', img: 'PIA24542' },
-    light:   { name: 'Light rover',      code: 'LR', mass: 180,  cost: 25, gen: 6,  tag: 'surface',    mobile: true,  real: 'Sojourner-class', img: 'PIA04413' },
+    light:   { name: 'Light rover',      code: 'LR', mass: 180,  cost: 25, gen: 6,  tag: 'surface',    mobile: true,  real: 'Spirit and Opportunity class', img: 'PIA04413' },
     orbcam:  { name: 'Orbiter camera',   code: 'OC', mass: 120,  cost: 20, gen: 10, tag: 'mapping',    mobile: false, real: 'MRO HiRISE-class', img: 'PIA04918' },
     weather: { name: 'Weather station',  code: 'WS', mass: 50,   cost: 8,  gen: 3,  tag: 'atmosphere', mobile: false, real: 'InSight-class', img: 'PIA22876' },
     heli:    { name: 'Scout helicopter', code: 'SH', mass: 2,    cost: 3,  gen: 2,  tag: 'scouting',   mobile: true,  real: 'Ingenuity, 1.8 kg', img: 'PIA23720' }
@@ -680,7 +680,7 @@ const P7 = (() => {
     extended:    { code: 'E11', cat: 'OPPORTUNITY', kind: 'good', title: 'Extended Mission Approved', effect: 'Gain 3 AP immediately.', fix: null, real: 'Opportunity was designed for 90 days and lasted almost 15 years.', tag: 'DATA' },
     target:      { code: 'E12', cat: 'OPPORTUNITY', kind: 'good', title: 'Target of Opportunity', effect: 'A bonus objective appears: 10 cards home within 3 weeks, worth 2 points.', fix: null, real: 'Comet Siding Spring passed 140,000 km from Mars in 2014 and NASA’s orbiters all observed it.', tag: 'DATA' },
     closest:     { code: 'E13', cat: 'OPPORTUNITY', kind: 'good', title: 'Closest Approach', effect: 'Every slot carries one extra card this week.', fix: null, real: 'MRO’s data rate falls from about 2.6 Mbps at closest approach to 600 kbps at its farthest.', tag: 'DATA' },
-    rival:       { code: 'E14', cat: 'OPPORTUNITY', kind: 'good', title: 'Rival Mission Ends', effect: 'One rival mission ends. Rivals hold one fewer pass every week from now on.', fix: null, real: 'When a mission ends, its network allocation is redistributed.', tag: 'DATA' }
+    rival:       { code: 'E14', cat: 'OPPORTUNITY', kind: 'good', title: 'Rival Mission Ends', effect: 'One rival mission ends. Rivals hold one fewer pass every week from now on.', fix: null, real: 'When a mission ends, its network allocation is redistributed.', tag: 'MODEL' }
   };
   const EVENT_POOL = ['goldstone', 'artemis', 'conjunction', 'wheel', 'safe', 'dust', 'wheeldmg', 'calbroken', 'memory', 'budget', 'extended', 'target', 'closest', 'rival'];
 
@@ -883,7 +883,7 @@ const P7 = (() => {
     let hold = (s.flags.artemis ? RIVAL_HOLD_SURGE : RIVAL_HOLD) - (s.persist.rivalsGone || 0);
     if (s.flags.goldstone) hold = Math.round(hold * 10 / 15);
     shuffle(s, avail()).slice(0, hold).forEach((w, k) => { w.holder = RIVALS[(k + rint(s, 5)) % 5].code; });
-    // pending rival claims on free wells — oversubscription (MODEL, mirrors ~30% mean)
+    // pending rival claims on free wells — oversubscription (MODEL)
     const k = TUNE.claimMin + rint(s, TUNE.claimSpan);
     shuffle(s, avail()).slice(0, k).forEach(w => w.claim = RIVALS[rint(s, 5)].code);
   }
@@ -1010,7 +1010,7 @@ const P7 = (() => {
   function canResolve(s, opt) {
     if (!s.conflict) return no('No open negotiation.');
     if (opt === 'refuse') return no('A mission that disagrees must counter-propose. Undoing another mission’s proposal is not allowed.');
-    if (opt === 'goodwill' && !TUNE.primeYield && rivalByCode(s.conflict.rival).prime) return no('Prime missions obtain 99.9% of requested time. Goodwill does not move them.');
+    if (opt === 'goodwill' && !TUNE.primeYield && rivalByCode(s.conflict.rival).prime) return no('In JPL’s scheduling experiment, prime missions kept 99.9% of their requested time. Goodwill does not move them.');
     if (opt === 'goodwill' && s.goodwill < 1) return no('You hold no goodwill tokens. Stand Down or Concede to earn one.');
     if (opt === 'split' && Math.floor(s.conflict.short / 2) === 0) return { ok: true, note: 'Shortfall of 1 splits to nothing.' };
     if (opt === 'trade' && s.week >= 12) return no('There is no next week.');
@@ -1339,7 +1339,7 @@ function vTitle() {
       <p class="kicker">NASA Space Apps Challenge 2026 · Space Mission Design Game</p>
       <h1 id="t1" class="cartouche" data-t="PRIORITY&#10;SEVEN" style="font-size:clamp(46px,8vw,104px)">PRIORITY<br>SEVEN</h1>
       <p class="subline">Deep Space Network · four seats · twelve weeks</p>
-      <p class="lede">A spacecraft can collect far more than it can send home. Thirteen antennas serve about forty missions. You design a Mars mission, fight for antenna time, and decide which science goes dark.</p>
+      <p class="lede">A spacecraft can collect far more than it can send home. A dozen deep-space antennas serve nearly sixty missions. You design a Mars mission, fight for antenna time, and decide which science goes dark.</p>
       <div class="tabs">
         <button class="tab red" data-a="go" data-v="prep" data-k="begin">BEGIN MISSION</button>
         ${saved && saved.phase === 'ops' ? `<button class="tab" data-a="resume" data-k="resume">RESUME WEEK ${saved.week}</button>` : ''}
@@ -1397,7 +1397,7 @@ function vPrep() {
         <div class="row"><span>Hardware</span>${N(cost, 'MODEL', 'units')}</div>
         <div class="row"><span>${P7.CLASSES[b.cls].name} budget</span><span class="num">${N(budget, 'DATA')}</span></div>
         <div class="row tot ${cost > budget ? 'over' : ''}"><span>${cost > budget ? 'Over by' : 'Remaining'}</span>${N(Math.abs(budget - cost), 'MODEL', 'units')}</div>
-        <div class="row ${mass > cap ? 'over' : ''}"><span>Mass</span><span>${N(mass, 'DATA', 'kg')} / ${N(cap, 'MODEL', 'kg')}</span></div>
+        <div class="row ${mass > cap ? 'over' : ''}"><span>Mass</span><span>${N(mass, 'MODEL', 'kg')} / ${N(cap, 'MODEL', 'kg')}</span></div>
       </div></div>
     </form>
     <aside class="dossier card" aria-labelledby="dz-h">
@@ -1405,7 +1405,7 @@ function vPrep() {
       <h2 id="dz-h">${b.robots.length ? b.robots.map(r => R[r].name).join(' + ') : 'No payload yet'}</h2>
       ${plate(b.robots[0], b.robots[0] ? R[b.robots[0]].real : 'DSS-14, Goldstone')}
       <table class="manifest"><tbody>
-        ${b.robots.map(r => `<tr><td><span class="code">${R[r].code}</span>${R[r].name}</td><td>${N(R[r].mass, 'DATA', 'kg')}</td></tr>`).join('')}
+        ${b.robots.map(r => `<tr><td><span class="code">${R[r].code}</span>${R[r].name}</td><td>${N(R[r].mass, MASS_TAG[r], 'kg')}</td></tr>`).join('')}
         <tr><td>${P7.DISHES[b.dish].name}, ${P7.BANDS[b.band].name}</td><td>${N(P7.cardsPerSlot({ build: b, df: [1], flags: {}, week: 1 }), 'DERIVED')} cards/slot at best</td></tr>
         <tr><td>Recorder</td><td>${N(b.rec * 20, 'MODEL')} cards</td></tr>
       </tbody></table>
@@ -1669,7 +1669,7 @@ function vNego(g) {
   <section class="nego card ${g.conflict ? (enter ? 'enter' : '') : 'leave'}" role="dialog" aria-modal="true" aria-labelledby="ng-h" aria-describedby="ng-d">
     <div class="cardhead" style="color:var(--ochre-ink)"><span>SCHEDULE CONFLICT · WEEK ${String(gg.week).padStart(2, '0')}</span><span>${r.prime ? 'PRIME' : 'NON-PRIME'}</span></div>
     <h2 id="ng-h">${esc(r.name)} holds ${N(c.short, 'MODEL')} of the slots you asked for</h2>
-    <p id="ng-d">You were granted ${N(c.got, 'MODEL')} of ${N(3, 'MODEL')}. ${r.prime ? 'Prime missions obtain 99.9% of requested time while the system total falls to 83% <sup class="tg tg-DATA">DATA</sup>.' : 'They will move if you give them something.'} Choose a counter-proposal.</p>
+    <p id="ng-d">You were granted ${N(c.got, 'MODEL')} of ${N(3, 'MODEL')}. ${r.prime ? 'In JPL’s scheduling experiment, giving prime missions priority let them keep 99.9% of their requested time while the system total fell to 83% <sup class="tg tg-DATA">DATA</sup>.' : 'They will move if you give them something.'} Choose a counter-proposal.</p>
     <div class="opts">${Object.entries(P7.CONFLICT_OPTS).map(([k, o]) => { const chk = P7.canResolve(gg, k); return `<button class="opt" data-a="resolve" data-v="${k}" data-k="opt-${k}" ${chk.ok ? '' : 'aria-disabled="true"'}><b>${o.name}</b><span>${esc(chk.ok ? (chk.note ? o.desc(gg) + ' ' + chk.note : o.desc(gg)) : chk.why)}</span></button>`; }).join('')}
       <button class="opt refuse" aria-disabled="true" data-a="refuse" data-k="opt-refuse"><b>Just refuse</b><span>A mission that disagrees must counter-propose. Undoing another mission's proposal is not allowed. <sup class="tg tg-DATA">DATA · JPL ICAPS 2016</sup></span></button>
     </div>
@@ -1705,10 +1705,11 @@ function vDebrief() {
     </svg></div>
     <div class="galileo">
       <div><h2 style="font:400 15px var(--f-display);letter-spacing:.02em">GALILEO, 1995–2003</h2>
-        <p style="font-size:13.5px;margin-top:6px">Galileo's high-gain antenna never unfurled. It flew its whole Jupiter tour on a total science allocation of ${N('1,930', 'DATA', 'Mbit')}, about eighty phone photos. Its magnetosphere working group gave up telemetry so Europa observations could proceed. The mission kept about ${N(70, 'DATA', '%')} of its science.</p></div>
+        <p style="font-size:13.5px;margin-top:6px">Galileo’s high-gain antenna never fully opened. The mission rebuilt its communications around a low-gain antenna, and its magnetosphere team chose short bursts of high-resolution data to win back some of what the low data rate cost it. Mission planners expected to meet about ${N(70, 'DATA', '%')} of the original science goals.</p></div>
       <div>${plate(null, 'DSS-14, Goldstone · the network Galileo depended on')}</div>
     </div>
     <p class="closing">Galileo kept 70%. <em>You kept ${s.retained}%.</em></p>
+    <p class="soft" style="font-size:12px;margin:0 0 6px">About 70% of Galileo’s planned science objectives, as its mission planners expected. The figure comes from secondary summaries; see the Sources page.</p>
     <div style="display:flex;gap:12px;flex-wrap:wrap;margin-top:16px">
       <button class="tab red" data-a="copy" data-k="copy">COPY REPORT</button>
       <button class="tab" data-a="again" data-k="again">FLY ANOTHER MISSION</button>
@@ -1754,15 +1755,19 @@ function vRules() {
 
 function vSources() {
   const rows = [
-    ['13 antennas, ~40 missions', 'DSN size and load', 'DATA', 'NASA OIG IG-23-016 (2023)', 'https://oig.nasa.gov/docs/IG-23-016.pdf'],
+    ['13 antennas, ~40 missions', 'DSN size and load in 2015–16', 'DATA', 'Shouraboura, Johnston, Tran (JPL), ICAPS 2016', 'https://ai.jpl.nasa.gov/public/documents/papers/shouraboura-icaps2016-dsn.pdf'],
+    ['12 antennas, nearly 60 missions', 'DSN size and load in 2020–23. The game board abstracts this to 15 passes a week and five rival missions', 'DATA', 'NASA OIG IG-23-016 (2023)', 'https://oig.nasa.gov/docs/IG-23-016.pdf'],
     ['540 h / antenna / 28 d', 'Antenna hours per scheduling period', 'DATA', 'NASA OIG IG-23-016', 'https://oig.nasa.gov/docs/IG-23-016.pdf'],
-    ['~30% mean, ~40% peak, →50%', 'DSN oversubscription now and in the 2030s', 'DATA', 'NASA OIG IG-23-016', 'https://oig.nasa.gov/docs/IG-23-016.pdf'],
-    ['99.9% vs 83%', 'Prime missions vs system total obtained time', 'DATA', 'NASA OIG IG-23-016', 'https://oig.nasa.gov/docs/IG-23-016.pdf'],
+    ['~30% mean', 'Weekly oversubscription, 13 weeks of late 2015; routinely as high as 40%', 'DATA', 'ICAPS 2016', 'https://ai.jpl.nasa.gov/public/documents/papers/shouraboura-icaps2016-dsn.pdf'],
+    ['~40% at times, ~50% by the 2030s, demand ×10', 'DSN oversubscription now and projected', 'DATA', 'NASA OIG IG-23-016', 'https://oig.nasa.gov/docs/IG-23-016.pdf'],
+    ['99.9% vs 83%', 'Prime missions given priority receive 99.9% of requested time; total scheduled falls from 88% to 83%', 'DATA', 'ICAPS 2016', 'https://ai.jpl.nasa.gov/public/documents/papers/shouraboura-icaps2016-dsn.pdf'],
     ['>900 h in 25 d', 'Artemis I DSN support', 'DATA', 'NASA OIG IG-23-016', 'https://oig.nasa.gov/docs/IG-23-016.pdf'],
     ['33 h, 151.5 h lost', 'Goldstone outage, Dec 2022', 'DATA', 'NASA OIG IG-23-016', 'https://oig.nasa.gov/docs/IG-23-016.pdf'],
-    ['Counter-propose rule', 'No bare refusal in DSN negotiation', 'DATA', 'JPL, ICAPS 2016 scheduling paper', 'https://ntrs.nasa.gov/search?q=deep%20space%20network%20scheduling'],
-    ['82 / 88 / 91 / 83%', 'Equal-priority, greedy, SWO, prime-favouring', 'DATA', 'DSN scheduling literature (NTRS list below)', 'https://ntrs.nasa.gov/search?q=deep%20space%20network%20scheduling'],
+    ['Counter-propose rule', 'A user who disagrees must counter-propose; just undoing a proposal is not allowed', 'DATA', 'ICAPS 2016, section on the negotiation process', 'https://ai.jpl.nasa.gov/public/documents/papers/shouraboura-icaps2016-dsn.pdf'],
+    ['82 / 88 / 91 / 83%', 'Equal priority 82%, greedy least-constrained-first 88%, best Squeaky Wheel run 91%, prime-favouring 83%', 'DATA', 'ICAPS 2016', 'https://ai.jpl.nasa.gov/public/documents/papers/shouraboura-icaps2016-dsn.pdf'],
     ['50 / 100 / 250 units', 'Discovery ~$500M, New Frontiers ~$1B, Flagship $2.5B+', 'DATA', 'NASA Planetary Science programs', 'https://science.nasa.gov/planetary-science/programs/'],
+    ['Robot masses: 1,000 / 180 / 2 kg', 'Heavy rover, light rover and helicopter are rounded from Perseverance 1,025 kg, Spirit and Opportunity ~185 kg, Ingenuity 1.8 kg', 'DERIVED', 'NASA mission pages', 'https://science.nasa.gov/mission/mars-2020-perseverance/'],
+    ['Camera 120 kg, weather station 50 kg', 'Game-scale masses, not the real instruments', 'MODEL', 'Balance', ''],
     ['1,025 kg', 'Perseverance mass (heavy rover)', 'DATA', 'NASA Mars 2020', 'https://science.nasa.gov/mission/mars-2020-perseverance/'],
     ['1.8 kg', 'Ingenuity mass (scout helicopter)', 'DATA', 'NASA Ingenuity', 'https://science.nasa.gov/mission/mars-2020-perseverance/ingenuity-mars-helicopter/'],
     ['3 m dish', 'MRO high-gain antenna', 'DATA', 'NASA MRO', 'https://science.nasa.gov/mission/mars-reconnaissance-orbiter/'],
@@ -1776,7 +1781,8 @@ function vSources() {
     ['5 weeks', 'Opportunity stuck in sand (2005); Spirit died embedded (2010)', 'DATA', 'NASA Mars Exploration Rovers', 'https://science.nasa.gov/mission/mer-opportunity/'],
     ['Wheels lost', 'Kepler and Dawn reaction-wheel failures', 'DATA', 'NASA Kepler; NASA Dawn', 'https://science.nasa.gov/mission/kepler/'],
     ['~26 months', 'Mars solar conjunction cadence (next: Jan 2028)', 'DATA', 'NASA Mars', 'https://science.nasa.gov/mars/'],
-    ['1,930 Mbit, ~70%', 'Galileo total science allocation and science retained', 'DATA', 'NASA Galileo', 'https://science.nasa.gov/mission/galileo/'],
+    ['High-gain antenna failed to open', 'Galileo; link rebuilt on the low-gain antenna', 'DATA', 'JPL Mission and Spacecraft Library', 'https://space.jpl.nasa.gov/msl/QuickLooks/galileoQL.html'],
+    ['~70% of planned science', 'What planners expected Galileo to achieve after the failure. Secondary summaries only; no primary NASA statement found', 'DATA', 'Secondary sources', ''],
     ['Section 508', 'Revised 508 incorporates WCAG 2.0 AA by reference', 'DATA', 'U.S. Access Board', 'https://www.access-board.gov/ict/'],
     ['14 event cards, 12 dealt', 'The printed event deck. Effects are game rules; the real-world line on each card is DATA', 'MODEL', 'Balance; 1,200-game simulation', ''],
     ['140,000 km', 'Comet Siding Spring passed Mars in October 2014 (Target of Opportunity card)', 'DATA', 'NASA Mars Exploration Program', 'https://science.nasa.gov/mars/'],
@@ -1810,6 +1816,8 @@ function vSources() {
       <tr><td>Log messages</td><td>Speech synthesis</td><td>Every new log line is read; S reads the full board</td></tr></tbody></table></div>
     <p style="margin-top:8px">Revised Section 508 makes WCAG conformance mandatory for federal agencies, which is why this game is fully keyboard-playable and every state carries a word or shape as well as a colour.</p>
     <h2>Honest limits</h2><ul>
+      <li>The 13 antennas, ~40 missions and ~30% oversubscription are from a 2016 JPL paper. The 2023 NASA audit counts 12 antennas (in 2020) and nearly 60 missions. The game board is an abstraction of either: 15 passes a week and five scripted rivals.</li>
+      <li>The ~70% Galileo figure is a planners’ expectation reported by secondary sources. We did not find a primary NASA statement of the final result.</li>
       <li>Pure inverse-square overstates the swing in data rate across the twelve weeks. Real missions adapt their coding.</li>
       <li>CubeSat 101 deliberately omits data rates and link budgets. Those come from DSN 810-005 Module 103, not from it.</li>
       <li>Rival behaviour is scripted, not a negotiating agent.</li>
@@ -1888,6 +1896,8 @@ function portrait(id) {
 const crewAvatar = id => `<span class="avatar" aria-hidden="true"><svg viewBox="177 46 300 300">${portrait(id)}</svg></span>`;
 
 /* ---------- text for each card (numbers come from the engine, never typed twice) ---------- */
+const MASS_TAG = { heavy: 'DERIVED', light: 'DERIVED', heli: 'DERIVED', orbcam: 'MODEL', weather: 'MODEL' }; // 1,025 kg Perseverance, ~185 kg Spirit/Opportunity, 1.8 kg Ingenuity rounded; camera and weather station are game-scale
+const EVENT_SRC = { goldstone: 'NASA OIG 2023', artemis: 'NASA OIG 2023', conjunction: 'NASA Mars', wheel: 'NASA Kepler, Dawn', safe: 'NASA/JPL mission ops', dust: 'NASA Opportunity', wheeldmg: 'NASA Curiosity', calbroken: 'NASA PDS', memory: 'game rule', budget: 'NASA Discovery', extended: 'NASA Opportunity', target: 'NASA Mars', closest: 'NASA MRO', rival: 'game rule', nominal: 'game rule' };
 const ROBOT_CODE = { heavy: 'R01', light: 'R02', orbcam: 'R03', heli: 'R04', weather: 'R05' };
 const ROBOT_TEXT = {
   heavy:   { rule: 'Unlocks “Sound for subsurface ice”. Can explore. Only the large cruise stage carries it.', real: 'Perseverance masses 1,025 kg. Big rovers buy capability and cost you everything else.' },
@@ -1903,7 +1913,7 @@ function photoArt(k) {
 function robotFront(k) {
   const r = P7.ROBOTS[k], t = ROBOT_TEXT[k], code = ROBOT_CODE[k];
   return { code, cat: 'ROBOT', title: tc(r.name), art: k === 'weather' ? null : code, artHTML: k === 'weather' ? weatherArt() : null, kind: PLATE_KIND[k],
-    stats: [['MASS', N(r.mass, 'DATA', 'kg')], ['COST', N(r.cost, 'MODEL', 'units')], ['DATA', `${N(r.gen, 'MODEL')} / wk`]], rule: esc(t.rule), real: `${esc(t.real)} ${DATA_SUP}` };
+    stats: [['MASS', N(r.mass, MASS_TAG[k], 'kg')], ['COST', N(r.cost, 'MODEL', 'units')], ['DATA', `${N(r.gen, 'MODEL')} / wk`]], rule: esc(t.rule), real: `${esc(t.real)} ${DATA_SUP}` };
 }
 function robotBack(k) {
   const c = ROBOT_CARDS[k], q = P7.ROBOTS[k].img, m = FB.images[q] || {};
@@ -1947,7 +1957,7 @@ function eventCardDef(g, e) {
   if (e === 'safe' && g && g.flare) real = `Trigger: a ${g.flare.classType} solar flare on ${g.flare.beginTime.slice(0, 10)} (NASA DONKI, ${APP.net.donki.st}). ${real}`;
   return { code: ev.code, cat: ev.cat, title: ev.title, art: ev.code || 'A01', kind: 'dish', rule: esc(ev.effect),
     fixHTML: ev.kind === 'good' ? 'Good news.' : ev.fix ? `Fix: ${esc(ev.fix)}` : 'No fix.', fixCls: ev.kind === 'good' ? 'good' : ev.fix ? 'fix' : 'none',
-    real: `${esc(real)} <sup class="tg tg-${ev.tag}">${ev.tag === 'DATA' ? 'DATA' : 'MDL'}</sup>` };
+    real: `${esc(real)} <b style="font-style:normal;color:var(--ink-soft)">Source: ${esc(EVENT_SRC[e] || 'NASA')}.</b> <sup class="tg tg-${ev.tag}">${ev.tag === 'DATA' ? 'DATA' : 'MDL'}</sup>` };
 }
 const CREW = {
   explorer:   { code: 'C01', name: 'Jun Okada',   job: 'Rover Driver',        line: 'Pushes the rover deeper and brings the data home. Greedy exploring risks a stuck rover.', real: 'Real rover planners plan each drive from orbital images, usually a day ahead.' },
@@ -2040,7 +2050,7 @@ const GLOSS = {
   'DSS-63': ['DSS-63', 'Deep Space Station 63: the 70 m dish near Madrid, Spain.'],
   'DSS-43': ['DSS-43', 'Deep Space Station 43: the 70 m dish near Canberra, Australia.'],
   HiRISE: ['HiRISE', 'The High Resolution Imaging Science Experiment, MRO’s big camera.'],
-  PRIME: ['PRIME mission', 'A top-priority mission. Primes get 99.9% of the time they request, so goodwill cannot move them.'],
+  PRIME: ['PRIME mission', 'A mission still in its prime phase. In JPL’s scheduling experiment, prime missions given priority kept 99.9% of their requested time, so goodwill cannot move them.'],
   P7: ['P7: your mission', 'An antenna pass you won. Small disc: a smaller dish at half rate. Faded: already used this week.'],
   MRO: ['MRO', 'Mars Reconnaissance Orbiter, a NASA Mars orbiter since 2006. A PRIME mission.'],
   EUR: ['EUR', 'Europa Clipper, NASA’s mission to Jupiter’s moon Europa. A PRIME mission.'],

@@ -27,18 +27,20 @@ Every number in the game carries a visible tag: **DATA** (published NASA figure)
 
 | Value | What it is | Tag | Source |
 |---|---|---|---|
-| 13 antennas, ~40 missions | Deep Space Network size and load | DATA | NASA OIG IG-23-016 |
-| ~30% mean, ~40% peak, heading to ~50% | DSN oversubscription | DATA | NASA OIG IG-23-016 |
-| 99.9% vs 83% | Prime missions vs system-wide obtained time | DATA | NASA OIG IG-23-016 |
+| 13 antennas, ~40 missions, ~30% mean oversubscription | Deep Space Network size and load in 2015–16 | DATA | JPL, Shouraboura, Johnston and Tran, ICAPS 2016 |
+| 12 antennas, nearly 60 missions | Network size and load in 2020–23 | DATA | NASA OIG IG-23-016 |
+| ~40% at times, ~50% by the 2030s, demand ×10 | DSN oversubscription now and projected | DATA | NASA OIG IG-23-016 |
+| 99.9% vs 83% | Prime missions given priority get 99.9% of requested time; total scheduled falls from 88% to 83% | DATA | JPL, ICAPS 2016 |
 | >900 h in 25 days | Artemis I DSN support (the Artemis surge card) | DATA | NASA OIG IG-23-016 |
 | 33 h / 151.5 h | Goldstone outage, Dec 2022 (the Goldstone card) | DATA | NASA OIG IG-23-016 |
 | Counter-propose rule | No bare refusal in DSN negotiation | DATA | JPL, ICAPS 2016 |
-| 82 / 88 / 91 / 83% | Equal-priority, greedy, Squeaky Wheel, prime-favouring schedulers | DATA | DSN scheduling literature (NTRS) |
+| 82 / 88 / 91 / 83% | Equal priority, greedy least-constrained-first, best Squeaky Wheel run, prime-favouring | DATA | JPL, ICAPS 2016 |
 | 1,025 kg · 1.8 kg · 3 m | Perseverance, Ingenuity, MRO high-gain antenna | DATA | NASA mission pages |
 | 46.7 / 56.4 dBi, ~3 dB dust loss | X- and Ka-band gain, Ka attenuation at Mars | DATA | DSN 810-005 |
 | Weekly Earth–Mars range | 2026-11-14 to 2027-01-30, 7-day steps | DATA | JPL Horizons API |
 | Cards per slot | max(1, round(4 × dish × band × (dmin/d)²)) | DERIVED | From the Horizons range |
-| 1,930 Mbit, ~70% | Galileo's total science allocation and science retained | DATA | NASA Galileo |
+| High-gain antenna never fully opened | Galileo; link rebuilt on the low-gain antenna | DATA | JPL Mission and Spacecraft Library |
+| ~70% of planned science | What planners expected Galileo to achieve afterwards (secondary summaries; no primary NASA statement found) | DATA | Secondary sources |
 | Real solar flares | Title the safe-mode event card | DATA | NASA DONKI |
 | Real asteroid elements | Extended-mission targets: Eros, Bennu, Psyche | DATA | JPL Small-Body Database |
 | Report titles | Sources panel citations on DSN scheduling | DATA | NASA NTRS |
@@ -47,6 +49,10 @@ Every number in the game carries a visible tag: **DATA** (published NASA figure)
 
 ## What's modelled
 
+- Robot masses: the heavy rover (1,000 kg), light rover (180 kg) and helicopter (2 kg) are rounded from Perseverance (1,025 kg), Spirit and Opportunity (about 185 kg) and Ingenuity (1.8 kg), and are tagged DERIVED. The orbiter camera (120 kg) and weather station (50 kg) are game-scale, tagged MODEL. Costs, cruise-stage capacities, data yields, objective sizes and deadlines are all MODEL, tuned by simulation.
+- The board abstracts the network to 15 passes a week across three complexes, with five scripted rival missions. The real network is larger: 13 antennas and about 40 missions in 2016, 12 antennas and nearly 60 missions in the 2023 audit.
+- The ~70% Galileo figure is what planners expected, from secondary summaries. We did not find a primary NASA statement of the final result.
+- No group playtests have been run. The claim that players abandon objectives around week 5 or 6 is the design intent (the first deadlines fall in weeks 5 and 6), supported only by simulation.
 - Pure inverse-square overstates the swing in data rate across twelve weeks. Real missions adapt their coding.
 - CubeSat 101 deliberately omits data rates and link budgets. Those come from DSN 810-005 Module 103, not from it.
 - Rival behaviour is scripted, not a negotiating agent.
