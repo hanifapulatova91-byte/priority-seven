@@ -47,7 +47,7 @@ p{margin:0}
 .paper{position:relative;background:var(--paper)}
 .paper::after{content:"";position:absolute;inset:0;pointer-events:none;background-image:var(--grain);opacity:.07;mix-blend-mode:multiply;border-radius:inherit}
 .cartouche{position:relative;font:400 clamp(30px,5vw,56px)/.92 var(--f-display);letter-spacing:.02em;z-index:0;isolation:isolate}
-.cartouche::before{content:attr(data-t);position:absolute;left:.6px;top:-.6px;width:100%;color:var(--red);opacity:.22;z-index:-1}
+.cartouche::before{content:attr(data-t);position:absolute;left:.6px;top:-.6px;width:100%;white-space:pre-line;color:var(--red);opacity:.22;z-index:-1}
 .card{background:var(--paper);border-radius:2px;position:relative;
   box-shadow:inset 0 1px 0 rgba(255,255,255,.7),0 1px 0 var(--paper-edge),0 2px 3px rgba(26,23,20,.14),0 8px 18px -8px rgba(26,23,20,.22)}
 .card::after{content:"";position:absolute;inset:0;pointer-events:none;background-image:var(--grain);opacity:.06;mix-blend-mode:multiply}
@@ -1337,7 +1337,7 @@ function vTitle() {
     ${svgReg()}
     <div>
       <p class="kicker">NASA Space Apps Challenge 2026 · Space Mission Design Game</p>
-      <h1 id="t1" class="cartouche" data-t="PRIORITY SEVEN" style="font-size:clamp(46px,8vw,104px)">PRIORITY<br>SEVEN</h1>
+      <h1 id="t1" class="cartouche" data-t="PRIORITY&#10;SEVEN" style="font-size:clamp(46px,8vw,104px)">PRIORITY<br>SEVEN</h1>
       <p class="subline">Deep Space Network · four seats · twelve weeks</p>
       <p class="lede">A spacecraft can collect far more than it can send home. Thirteen antennas serve about forty missions. You design a Mars mission, fight for antenna time, and decide which science goes dark.</p>
       <div class="tabs">
