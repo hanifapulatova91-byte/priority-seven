@@ -1,0 +1,214 @@
+{
+ "generated": "2026-11-14T13:56:35.196Z",
+ "horizons": {
+  "source": "JPL Horizons, COMMAND=499 CENTER=399 QUANTITIES=20, 7d step",
+  "rows": [
+   {
+    "date": "2026-Nov-14",
+    "deltaAU": 1.32433510978593
+   },
+   {
+    "date": "2026-Nov-21",
+    "deltaAU": 1.26437049957453
+   },
+   {
+    "date": "2026-Nov-28",
+    "deltaAU": 1.20364853564987
+   },
+   {
+    "date": "2026-Dec-05",
+    "deltaAU": 1.14249705098633
+   },
+   {
+    "date": "2026-Dec-12",
+    "deltaAU": 1.08143703763187
+   },
+   {
+    "date": "2026-Dec-19",
+    "deltaAU": 1.02115913326923
+   },
+   {
+    "date": "2026-Dec-26",
+    "deltaAU": 0.96239584226261
+   },
+   {
+    "date": "2027-Jan-02",
+    "deltaAU": 0.90592028251319
+   },
+   {
+    "date": "2027-Jan-09",
+    "deltaAU": 0.85277804214823
+   },
+   {
+    "date": "2027-Jan-16",
+    "deltaAU": 0.80424960757459
+   },
+   {
+    "date": "2027-Jan-23",
+    "deltaAU": 0.76167816917805
+   },
+   {
+    "date": "2027-Jan-30",
+    "deltaAU": 0.72640881648248
+   },
+   {
+    "date": "2027-Feb-06",
+    "deltaAU": 0.69990227569967
+   },
+   {
+    "date": "2027-Feb-13",
+    "deltaAU": 0.68347746218621
+   }
+  ]
+ },
+ "images": {
+  "PIA24542": {
+   "title": "Perseverance's Selfie with Ingenuity",
+   "nasa_id": "PIA24542",
+   "date": "2021-04-07",
+   "thumb": "https://images-assets.nasa.gov/image/PIA24542/PIA24542~small.jpg"
+  },
+  "PIA04413": {
+   "title": "Artist Concept of Rover on Mars",
+   "nasa_id": "PIA04413",
+   "date": "2003-02-26",
+   "thumb": "https://images-assets.nasa.gov/image/PIA04413/PIA04413~small.jpg"
+  },
+  "PIA04918": {
+   "title": "Mars Reconnaissance Orbiter over Pole Artist Concept",
+   "nasa_id": "PIA04918",
+   "date": "2003-12-10",
+   "thumb": "https://images-assets.nasa.gov/image/PIA04918/PIA04918~small.jpg"
+  },
+  "PIA22876": {
+   "title": "InSight's First Selfie",
+   "nasa_id": "PIA22876",
+   "date": "2018-12-11",
+   "thumb": "https://images-assets.nasa.gov/image/PIA22876/PIA22876~small.jpg"
+  },
+  "PIA23720": {
+   "title": "Ingenuity Mars Helicopter on the Martian Surface (Artist's Concept)",
+   "nasa_id": "PIA23720",
+   "date": "2020-07-14",
+   "thumb": "https://images-assets.nasa.gov/image/PIA23720/PIA23720~small.jpg"
+  },
+  "deep space network antenna goldstone": {
+   "title": "Tracks of a Giant",
+   "nasa_id": "PIA13277",
+   "date": "2010-08-25",
+   "thumb": "https://images-assets.nasa.gov/image/PIA13277/PIA13277~small.jpg"
+  }
+ },
+ "donki": {
+  "note": "DONKI FLR returned HTTP 404 for all ranges on 2026-11-14 (service outage at build time). Seeded with flares recorded in the DONKI catalog.",
+  "flares": [
+   {
+    "beginTime": "2024-10-03T12:08Z",
+    "classType": "X9.0"
+   },
+   {
+    "beginTime": "2024-05-14T16:46Z",
+    "classType": "X8.7"
+   },
+   {
+    "beginTime": "2024-10-01T21:58Z",
+    "classType": "X7.1"
+   },
+   {
+    "beginTime": "2024-05-11T01:10Z",
+    "classType": "X5.8"
+   },
+   {
+    "beginTime": "2023-12-14T16:47Z",
+    "classType": "X2.8"
+   },
+   {
+    "beginTime": "2024-02-22T22:08Z",
+    "classType": "X6.3"
+   }
+  ]
+ },
+ "sbdb": {
+  "16": {
+   "name": "16 Psyche (A852 FA)",
+   "kind": "an",
+   "a": "2.93",
+   "e": "0.135",
+   "i": "3.1",
+   "per": "1830",
+   "epoch": "2461200.5"
+  },
+  "433": {
+   "name": "433 Eros (A898 PA)",
+   "kind": "an",
+   "a": "1.46",
+   "e": "0.223",
+   "i": "10.8",
+   "per": "643",
+   "epoch": "2461200.5"
+  },
+  "101955": {
+   "name": "101955 Bennu (1999 RQ36)",
+   "kind": "an",
+   "a": "1.13",
+   "e": "0.204",
+   "i": "6.03",
+   "per": "437",
+   "epoch": "2455562.5"
+  }
+ },
+ "ntrs": [
+  {
+   "id": 20130009147,
+   "title": "Automating Mid- and Long-Range Scheduling for the NASA Deep Space Network",
+   "year": "2012",
+   "url": "https://ntrs.nasa.gov/citations/20130009147"
+  },
+  {
+   "id": 20060042856,
+   "title": "Automating Deep Space Network scheduling and conflict resolution",
+   "year": "2005",
+   "url": "https://ntrs.nasa.gov/citations/20060042856"
+  },
+  {
+   "id": 20130009323,
+   "title": "Automating Mid- and Long-Range Scheduling for NASA's Deep Space Network",
+   "year": "2012",
+   "url": "https://ntrs.nasa.gov/citations/20130009323"
+  },
+  {
+   "id": 20060042808,
+   "title": "The Deep Space Network scheduling problem",
+   "year": "2005",
+   "url": "https://ntrs.nasa.gov/citations/20060042808"
+  },
+  {
+   "id": 19840049638,
+   "title": "NASA Deep Space Network Operations Scheduling",
+   "year": "1982",
+   "url": "https://ntrs.nasa.gov/citations/19840049638"
+  },
+  {
+   "id": 20070034024,
+   "title": "Deep Space Network Scheduling Using Evolutionary Computational Methods",
+   "year": "2007",
+   "url": "https://ntrs.nasa.gov/citations/20070034024"
+  },
+  {
+   "id": 20210001350,
+   "title": "Automated scheduling for NASA’s Deep Space Network",
+   "year": "2011",
+   "url": "https://ntrs.nasa.gov/citations/20210001350"
+  },
+  {
+   "id": 19890000699,
+   "title": "Deep space network resource scheduling approach and application",
+   "year": "1987",
+   "url": "https://ntrs.nasa.gov/citations/19890000699"
+  }
+ ],
+ "nasa3d": {
+  "note": "Not fetched: optional, cut per build order.",
+  "items": []
+ }
+}

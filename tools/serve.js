@@ -1,0 +1,3 @@
+const http=require('http'),fs=require('fs'),path=require('path');const R=path.join(__dirname,'..'); // dev-only static server: node tools/serve.js, then open http://localhost:8077
+const T={'.html':'text/html','.json':'application/json','.js':'text/javascript','.css':'text/css'};
+http.createServer((q,s)=>{let p=decodeURIComponent(q.url.split('?')[0]);if(p==='/')p='/index.html';const f=path.join(R,p);if(!f.startsWith(R))return s.end();fs.readFile(f,(e,d)=>{if(e){s.statusCode=404;return s.end('nf')}s.setHeader('Content-Type',T[path.extname(f)]||'application/octet-stream');s.setHeader('Cache-Control','no-store');s.end(d)})}).listen(8077);
