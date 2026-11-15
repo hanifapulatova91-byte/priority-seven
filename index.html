@@ -1339,7 +1339,7 @@ function vTitle() {
       <p class="kicker">NASA Space Apps Challenge 2026 · Space Mission Design Game</p>
       <h1 id="t1" class="cartouche" data-t="PRIORITY&#10;SEVEN" style="font-size:clamp(46px,8vw,104px)">PRIORITY<br>SEVEN</h1>
       <p class="subline">Deep Space Network · four seats · twelve weeks</p>
-      <p class="lede">A spacecraft can collect far more than it can send home. A dozen deep-space antennas serve nearly sixty missions. You design a Mars mission, fight for antenna time, and decide which science goes dark.</p>
+      <p class="lede">A spacecraft can collect far more than it can send home. About 14 deep-space antennas serve about 60 missions. You design a Mars mission, fight for antenna time, and decide which science goes dark.</p>
       <div class="tabs">
         <button class="tab red" data-a="go" data-v="prep" data-k="begin">BEGIN MISSION</button>
         ${saved && saved.phase === 'ops' ? `<button class="tab" data-a="resume" data-k="resume">RESUME WEEK ${saved.week}</button>` : ''}
@@ -1756,7 +1756,8 @@ function vRules() {
 function vSources() {
   const rows = [
     ['13 antennas, ~40 missions', 'DSN size and load in 2015–16', 'DATA', 'Shouraboura, Johnston, Tran (JPL), ICAPS 2016', 'https://ai.jpl.nasa.gov/public/documents/papers/shouraboura-icaps2016-dsn.pdf'],
-    ['12 antennas, nearly 60 missions', 'DSN size and load in 2020–23. The game board abstracts this to 15 passes a week and five rival missions', 'DATA', 'NASA OIG IG-23-016 (2023)', 'https://oig.nasa.gov/docs/IG-23-016.pdf'],
+    ['~14 antennas', 'DSN size in 2022: three 70 m and eleven 34 m dishes. (12 antennas were counted in 2020, 13 in 2016.) The game board abstracts this to 15 passes a week', 'DATA', 'NASA report on the DSS-53 antenna, 2022', 'https://www.nasa.gov/directorates/somd/space-communications-navigation-program/antennas-of-the-dsn'],
+    ['Nearly 60 missions', 'Missions the DSN supports (about 40 were counted in 2016)', 'DATA', 'NASA OIG IG-23-016 (2023)', 'https://oig.nasa.gov/docs/IG-23-016.pdf'],
     ['540 h / antenna / 28 d', 'Antenna hours per scheduling period', 'DATA', 'NASA OIG IG-23-016', 'https://oig.nasa.gov/docs/IG-23-016.pdf'],
     ['~30% mean', 'Weekly oversubscription, 13 weeks of late 2015; routinely as high as 40%', 'DATA', 'ICAPS 2016', 'https://ai.jpl.nasa.gov/public/documents/papers/shouraboura-icaps2016-dsn.pdf'],
     ['~40% at times, ~50% by the 2030s, demand ×10', 'DSN oversubscription now and projected', 'DATA', 'NASA OIG IG-23-016', 'https://oig.nasa.gov/docs/IG-23-016.pdf'],
@@ -1816,7 +1817,7 @@ function vSources() {
       <tr><td>Log messages</td><td>Speech synthesis</td><td>Every new log line is read; S reads the full board</td></tr></tbody></table></div>
     <p style="margin-top:8px">Revised Section 508 makes WCAG conformance mandatory for federal agencies, which is why this game is fully keyboard-playable and every state carries a word or shape as well as a colour.</p>
     <h2>Honest limits</h2><ul>
-      <li>The 13 antennas, ~40 missions and ~30% oversubscription are from a 2016 JPL paper. The 2023 NASA audit counts 12 antennas (in 2020) and nearly 60 missions. The game board is an abstraction of either: 15 passes a week and five scripted rivals.</li>
+      <li>The antenna count changes as NASA builds and retires dishes: 13 (JPL, 2016), 12 (NASA audit, 2020), about 14 (NASA, 2022). The mission count grew from about 40 (2016) to nearly 60 (2023). The ~30% oversubscription is from 2015. The game board abstracts all of this to 15 passes a week and five scripted rivals.</li>
       <li>The ~70% Galileo figure is a planners’ expectation reported by secondary sources. We did not find a primary NASA statement of the final result.</li>
       <li>Pure inverse-square overstates the swing in data rate across the twelve weeks. Real missions adapt their coding.</li>
       <li>CubeSat 101 deliberately omits data rates and link budgets. Those come from DSN 810-005 Module 103, not from it.</li>
